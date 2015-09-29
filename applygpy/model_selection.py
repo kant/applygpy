@@ -50,21 +50,25 @@ def run_model(model_builder, X, Y, model):
 
 def make_model_builder(Y, num_inducing=None, name=None):
     from GPy.models import GPClassification, GPRegression, SparseGPClassification, SparseGPRegression
+    if num_inducing is None:
+        num_inducing = int(Y.shape[0]/4)
     if np.all(np.unique(Y) == [0, 1]):
         def model_builder(X, Y, kernel):
             if X.shape[0] < 1000:
                 tmp = GPClassification(X, Y, kernel=kernel)
             else:
-                tmp = SparseGPClassification(X, Y, num_inducing=int(X.shape[0]/4), kernel=kernel)
-            tmp.name = name
+                tmp = SparseGPClassification(X, Y, num_inducing=num_inducing, kernel=kernel)
+            if name is not None:
+                tmp.name = name
             return tmp
     else:
         def model_builder(X, Y, kernel):
             if X.shape[0] < 1000:
                 tmp = GPRegression(X, Y, kernel=kernel)
             else:
-                tmp = SparseGPRegression(X, Y, num_inducing=int(X.shape[0]/4), kernel=kernel)
-            tmp.name = name
+                tmp = SparseGPRegression(X, Y, num_inducing=num_inducing, kernel=kernel)
+            if name is not None:
+                tmp.name = name
             return tmp
     return model_builder
 
@@ -72,7 +76,7 @@ def make_model_builder(Y, num_inducing=None, name=None):
 def _add_error(l, idx, test_size, name, errname, err):
     l.append([name, idx, test_size, errname, err]) 
 
-def cross_validate(X, Y, num_inducing):
+def cross_validate(X, Y, num_inducing=None):
     import pandas as pd  # @UnresolvedImport
     if np.all(np.unique(Y) == [0, 1]):
         from sklearn.cross_validation import StratifiedKFold  # @UnresolvedImport
