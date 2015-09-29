@@ -51,7 +51,7 @@ def run_model(model_builder, X, Y, model):
 def make_model_builder(Y, num_inducing=None, name=None):
     from GPy.models import GPClassification, GPRegression, SparseGPClassification, SparseGPRegression
     if num_inducing is None:
-        num_inducing = int(Y.shape[0]/4)
+        num_inducing = min(500, int(Y.shape[0]/4))
     if np.all(np.unique(Y) == [0, 1]):
         def model_builder(X, Y, kernel):
             if X.shape[0] < 1000:

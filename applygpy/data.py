@@ -11,5 +11,5 @@ def load_libsvm(path):
 
 
 if __name__ == '__main__':
-    path = '../azDatasets/dataset1.train'
+    path = '../azDatasets/dataset4.train'
     X, Y = load_libsvm(path)
