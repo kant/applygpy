@@ -16,6 +16,7 @@ setup(name = 'applygpy',
       keywords = "machine-learning gaussian-processes kernels",
       url = "https://github.com/mzwiessele/applygpy",
       packages = ["applygpy",
+                  "applygpy.tests"
                   ],
       package_dir={'applygpy': 'applygpy'},
       py_modules = ['applygpy.__init__'],
