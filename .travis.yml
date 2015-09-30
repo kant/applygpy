@@ -62,13 +62,13 @@ before_install:
 install:
   - python setup.py develop
 
-before_script:
-  - mkdir empty
-  - cd empty
+#before_script:
+#  - mkdir empty
+#  - cd empty
   
 after_success:
   - codecov   
 
 script:
-  - python ../travis_tests.py
+  - python travis_tests.py
 
