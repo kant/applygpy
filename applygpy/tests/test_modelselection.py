@@ -1,7 +1,7 @@
 '''
 Created on 30 Sep 2015
 
-@author: maxz
+@author: Max Zwiessele
 '''
 import unittest, numpy as np, pandas as pd  # @UnresolvedImport
 import GPy, GPy.kern as kern

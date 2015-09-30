@@ -1,7 +1,7 @@
 '''
 Created on 30 Sep 2015
 
-@author: maxz
+@author: Max Zwiessele
 '''
 import matplotlib, matplotlib.pyplot as plt  # @UnresolvedImport
 import GPy, numpy as np

@@ -1,7 +1,7 @@
 '''
 Created on 30 Sep 2015
 
-@author: maxz
+@author: Max Zwiessele
 '''
 import unittest, numpy as np, GPy
 from applygpy.prediction import PredictionModel, PredictionModelSparse
