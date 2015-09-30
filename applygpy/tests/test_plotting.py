@@ -6,8 +6,11 @@ Created on 30 Sep 2015
 import matplotlib, matplotlib.pyplot as plt  # @UnresolvedImport
 import GPy, numpy as np
 from applygpy.prediction import PredictionModelSparse, PredictionModel
-import StringIO
-
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+import cPickle as pickle
 import unittest
 
 class Test(unittest.TestCase):
@@ -16,6 +19,9 @@ class Test(unittest.TestCase):
         self.X, self.Y = np.random.normal(0, 1, (10, 1)), np.random.normal(0, 1, (10, 1))
         pass
 
+    def tearDown(self):
+        plt.close('all')
+
     def testPlotting(self):
         m = GPy.models.GPRegression(self.X, self.Y) 
         p = PredictionModel(m)
@@ -23,7 +29,7 @@ class Test(unittest.TestCase):
         m.plot(plot_training_data=False, ax=ax)
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i1 = StringIO.StringIO()
+        i1 = StringIO()
         fig.savefig(i1, format='svg')
         i1.seek(0)
 
@@ -31,7 +37,7 @@ class Test(unittest.TestCase):
         p.plot(plot_training_data=False, ax=ax)        
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i2 = StringIO.StringIO()
+        i2 = StringIO()
 
         fig.savefig(i2, format='svg')
         i2.seek(0)
@@ -42,10 +48,10 @@ class Test(unittest.TestCase):
         m = GPy.models.SparseGPRegression(self.X, self.Y) 
         p = PredictionModelSparse(m)
         fig, ax = plt.subplots()
-        m.plot(plot_training_data=True, ax=ax)
+        m.plot(plot_training_data=False, ax=ax)
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i1 = StringIO.StringIO()
+        i1 = StringIO()
         fig.savefig(i1, format='svg')
         i1.seek(0)
 
@@ -53,7 +59,7 @@ class Test(unittest.TestCase):
         p.plot(plot_training_data=False, ax=ax)        
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i2 = StringIO.StringIO()
+        i2 = StringIO()
 
         fig.savefig(i2, format='svg')
         i2.seek(0)
@@ -67,7 +73,7 @@ class Test(unittest.TestCase):
         m.plot(plot_training_data=False, ax=ax)
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i1 = StringIO.StringIO()
+        i1 = StringIO()
         fig.savefig(i1, format='svg')
         i1.seek(0)
 
@@ -75,7 +81,7 @@ class Test(unittest.TestCase):
         p.plot(plot_training_data=False, ax=ax)        
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i2 = StringIO.StringIO()
+        i2 = StringIO()
 
         fig.savefig(i2, format='svg')
         i2.seek(0)
@@ -89,7 +95,7 @@ class Test(unittest.TestCase):
         m.plot(plot_training_data=False, ax=ax)
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i1 = StringIO.StringIO()
+        i1 = StringIO()
         fig.savefig(i1, format='svg')
         i1.seek(0)
 
@@ -97,12 +103,56 @@ class Test(unittest.TestCase):
         p.plot(plot_training_data=False, ax=ax)        
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
-        i2 = StringIO.StringIO()
+        i2 = StringIO()
 
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
         self.assertEqual(i1.buf, i2.buf)
+
+    def testPlottingDataNotShow(self):
+        m = GPy.models.SparseGPRegression(self.X, self.Y) 
+        p = PredictionModelSparse(m)
+        fig, ax = plt.subplots()
+        p.plot(plot_training_data=False, ax=ax)
+        ax.set_ylim(0, 1)
+        ax.set_xlim(-2, 2)
+        i1 = StringIO()
+        fig.savefig(i1, format='svg')
+        i1.seek(0)
+
+        fig, ax = plt.subplots()
+        p.plot(plot_training_data=True, ax=ax)        
+        ax.set_ylim(0, 1)
+        ax.set_xlim(-2, 2)
+        i2 = StringIO()
+
+        fig.savefig(i2, format='svg')
+        i2.seek(0)
+        
+        self.assertEqual(i1.buf, i2.buf)
+
+        m = GPy.models.GPRegression(self.X, self.Y) 
+        p = PredictionModel(m)
+        fig, ax = plt.subplots()
+        p.plot(plot_training_data=False, ax=ax)
+        ax.set_ylim(0, 1)
+        ax.set_xlim(-2, 2)
+        i1 = StringIO()
+        fig.savefig(i1, format='svg')
+        i1.seek(0)
+
+        fig, ax = plt.subplots()
+        p.plot(plot_training_data=True, ax=ax)        
+        ax.set_ylim(0, 1)
+        ax.set_xlim(-2, 2)
+        i2 = StringIO()
+
+        fig.savefig(i2, format='svg')
+        i2.seek(0)
+        
+        self.assertEqual(i1.buf, i2.buf)
+        
 
 
 if __name__ == "__main__":

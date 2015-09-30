@@ -70,5 +70,5 @@ after_success:
   - codecov   
 
 script:
-  - coverage run travis_tests.py
+  - python travis_tests.py
 

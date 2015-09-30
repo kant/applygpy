@@ -45,6 +45,9 @@ class PredictionModelSparse(GPy.core.SparseGP):
         levels=20, samples=0, fignum=None, ax=None, resolution=None, 
         plot_raw=False, linecol=None, fillcol=None, Y_metadata=None, 
         data_symbol='kx', predict_kw=None, plot_training_data=False, samples_y=0, apply_link=False):
+        if plot_training_data:
+            plot_training_data = False
+            print("Training data not saved, continuing without data plotting.")
         return super(PredictionModelSparse, self).plot(plot_limits=plot_limits, which_data_rows=which_data_rows, which_data_ycols=which_data_ycols, fixed_inputs=fixed_inputs, levels=levels, samples=samples, fignum=fignum, ax=ax, resolution=resolution, plot_raw=plot_raw, linecol=linecol, fillcol=fillcol, Y_metadata=Y_metadata, data_symbol=data_symbol, predict_kw=predict_kw, plot_training_data=plot_training_data, samples_y=samples_y, apply_link=apply_link)
 
     def plot_data(self, which_data_rows='all', 
@@ -81,4 +84,7 @@ class PredictionModel(GPy.core.GP):
         levels=20, samples=0, fignum=None, ax=None, resolution=None, 
         plot_raw=False, linecol=None, fillcol=None, Y_metadata=None,
         data_symbol='kx', predict_kw=None, plot_training_data=False, samples_y=0, apply_link=False):
+        if plot_training_data:
+            plot_training_data = False
+            print("Training data not saved, continuing without data plotting.")
         return super(PredictionModel, self).plot(plot_limits=plot_limits, which_data_rows=which_data_rows, which_data_ycols=which_data_ycols, fixed_inputs=fixed_inputs, levels=levels, samples=samples, fignum=fignum, ax=ax, resolution=resolution, plot_raw=plot_raw, linecol=linecol, fillcol=fillcol, Y_metadata=Y_metadata, data_symbol=data_symbol, predict_kw=predict_kw, plot_training_data=plot_training_data, samples_y=samples_y, apply_link=apply_link)

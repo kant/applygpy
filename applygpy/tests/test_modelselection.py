@@ -29,7 +29,7 @@ class Test(unittest.TestCase):
                             ['Mat+Lin', kern.Matern32(self.X.shape[1]) + kern.Linear(self.X.shape[1], variances=.01) + kern.Bias(self.X.shape[1])], 
                             ['Lin', kern.Linear(self.X.shape[1], variances=.01) + kern.Bias(self.X.shape[1])],
                             ] 
-        self.verbose = False
+        self.verbose = True
 
     def testCrossval(self):
         def model_builder(X, Y, kernel):
@@ -63,12 +63,9 @@ class Test(unittest.TestCase):
         self.assertEqual(tmp.loc['RMSE'].mean().argmin(), self.sim_model)
         
     def testCrossvalSparseClass(self):
-        def model_builder(X, Y, kernel):
-            m = SparseGPClassification(X, Y, kernel=kernel)
-            return m
         res = cross_validate(self.X, self.Y>self.Y.mean(), sparse=True, verbose=self.verbose, 
                              kernels_models=self.test_models, 
-                             model_builder=model_builder,
+                             #model_builder=model_builder,
                              k=2,
                              )
         tmp = (res['error'] / res['test_size'])
