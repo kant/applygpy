@@ -21,8 +21,8 @@ os:
 
 env:
   - PYTHON_VERSION=2.7
-  - PYTHON_VERSION=3.3
-  - PYTHON_VERSION=3.4
+  #- PYTHON_VERSION=3.3
+  #- PYTHON_VERSION=3.4
   - PYTHON_VERSION=3.5
 
 before_install:
@@ -70,5 +70,5 @@ after_success:
   - codecov   
 
 script:
-  - python travis_tests.py
+  - coverage run travis_tests.py
 

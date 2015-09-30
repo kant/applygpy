@@ -6,10 +6,8 @@ Created on 30 Sep 2015
 import unittest, numpy as np, GPy
 from applygpy.prediction import PredictionModel, PredictionModelSparse
 try:
-    from StringIO import StringIO
     import cPickle as pickle
 except ImportError:
-    from io import StringIO
     import pickle
 
 class Test(unittest.TestCase):
@@ -23,10 +21,8 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 3)
         self.assertEqual(p.size, 3)
-        ptdata = StringIO()
-        p.pickle(ptdata)
-        ptdata.seek(0)
-        pt = pickle.load(ptdata)
+        ptdata = pickle.dumps(p)
+        pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 3)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -42,10 +38,8 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 23)
         self.assertEqual(p.size, 23)
-        ptdata = StringIO()
-        p.pickle(ptdata)
-        ptdata.seek(0)
-        pt = pickle.load(ptdata)
+        ptdata = pickle.dumps(p)
+        pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 23)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -61,10 +55,8 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 22)
         self.assertEqual(p.size, 22)
-        ptdata = StringIO()
-        p.pickle(ptdata)
-        ptdata.seek(0)
-        pt = pickle.load(ptdata)
+        ptdata = pickle.dumps(p)
+        pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 22)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -80,10 +72,8 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 2)
         self.assertEqual(p.size, 2)
-        ptdata = StringIO()
-        p.pickle(ptdata)
-        ptdata.seek(0)
-        pt = pickle.load(ptdata)
+        ptdata = pickle.dumps(p)
+        pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 2)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -99,10 +89,8 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 5)
         self.assertEqual(p.size, 5)
-        ptdata = StringIO()
-        p.pickle(ptdata)
-        ptdata.seek(0)
-        pt = pickle.load(ptdata)
+        ptdata = pickle.dumps(p)
+        pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 5)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -118,10 +106,8 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 4)
         self.assertEqual(p.size, 4)
-        ptdata = StringIO()
-        p.pickle(ptdata)
-        ptdata.seek(0)
-        pt = pickle.load(ptdata)
+        ptdata = pickle.dumps(p)
+        pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 4)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)

@@ -8,7 +8,7 @@ import GPy, numpy as np
 import copy
 from GPy.core.parameterization.observable_array import ObsAr
 
-class _Arr(ObsAr):
+class ArrayPlaceholder(ObsAr):
     def __init__(self, array):
         self.shape = array.shape
         self._min, self._max = array.min(), array.max()
@@ -24,7 +24,7 @@ class _Arr(ObsAr):
 class PredictionModelSparse(GPy.core.SparseGP):
     
     def __init__(self, model):
-        super(PredictionModelSparse, self).__init__(_Arr(model.X), _Arr(model.Y), 
+        super(PredictionModelSparse, self).__init__(ArrayPlaceholder(model.X), ArrayPlaceholder(model.Y), 
                                                     likelihood=model.likelihood.copy(), 
                                                     kernel=model.kern.copy(), Z=model.Z.copy(), 
                                                     inference_method=copy.deepcopy(model.inference_method),
@@ -58,7 +58,7 @@ class PredictionModelSparse(GPy.core.SparseGP):
 class PredictionModel(GPy.core.GP):
 
     def __init__(self, model):
-        super(PredictionModel, self).__init__(model.X.copy(), _Arr(model.Y), 
+        super(PredictionModel, self).__init__(model.X.copy(), ArrayPlaceholder(model.Y), 
                                               kernel=model.kern.copy(), likelihood=model.likelihood.copy(), 
                                               mean_function=(model.mean_function.copy() if model.mean_function is not None else None),
                                               inference_method=copy.deepcopy(model.inference_method)

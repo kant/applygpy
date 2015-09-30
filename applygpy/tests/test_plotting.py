@@ -6,13 +6,7 @@ Created on 30 Sep 2015
 import matplotlib, matplotlib.pyplot as plt  # @UnresolvedImport
 import GPy, numpy as np
 from applygpy.prediction import PredictionModelSparse, PredictionModel
-try:
-    from StringIO import StringIO
-    import cPickle as pickle
-except ImportError:
-    from io import StringIO
-    import pickle
-
+from io import StringIO
 import unittest
 
 class Test(unittest.TestCase):
@@ -40,11 +34,10 @@ class Test(unittest.TestCase):
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i2 = StringIO()
-
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
-        self.assertEqual(i1.buf, i2.buf)
+        self.assertEqual(i1.read(), i2.read())
 
     def testPlottingSparse(self):
         m = GPy.models.SparseGPRegression(self.X, self.Y) 
@@ -62,11 +55,10 @@ class Test(unittest.TestCase):
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i2 = StringIO()
-
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
-        self.assertEqual(i1.buf, i2.buf)
+        self.assertEqual(i1.read(), i2.read())
 
     def testPlottingClass(self):
         m = GPy.models.GPClassification(self.X, self.Y<0) 
@@ -84,11 +76,10 @@ class Test(unittest.TestCase):
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i2 = StringIO()
-
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
-        self.assertEqual(i1.buf, i2.buf)
+        self.assertEqual(i1.read(), i2.read())
         
     def testPlottingSparseClass(self):
         m = GPy.models.SparseGPClassification(self.X, self.Y<0) 
@@ -106,11 +97,10 @@ class Test(unittest.TestCase):
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i2 = StringIO()
-
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
-        self.assertEqual(i1.buf, i2.buf)
+        self.assertEqual(i1.read(), i2.read())
 
     def testPlottingDataNotShow(self):
         m = GPy.models.SparseGPRegression(self.X, self.Y) 
@@ -128,11 +118,10 @@ class Test(unittest.TestCase):
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i2 = StringIO()
-
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
-        self.assertEqual(i1.buf, i2.buf)
+        self.assertEqual(i1.read(), i2.read())
 
         m = GPy.models.GPRegression(self.X, self.Y) 
         p = PredictionModel(m)
@@ -149,11 +138,10 @@ class Test(unittest.TestCase):
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i2 = StringIO()
-
         fig.savefig(i2, format='svg')
         i2.seek(0)
         
-        self.assertEqual(i1.buf, i2.buf)
+        self.assertEqual(i1.read(), i2.read())
         
 
 
