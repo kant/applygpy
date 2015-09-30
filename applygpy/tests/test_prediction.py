@@ -6,7 +6,7 @@ Created on 30 Sep 2015
 import unittest, numpy as np, GPy
 from applygpy.prediction import PredictionModel, PredictionModelSparse
 import StringIO
-
+import cPickle as pickle
 
 class Test(unittest.TestCase):
     def setUp(self):
@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         ptdata = StringIO.StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
-        pt = GPy.load(ptdata)
+        pt = pickle.load(ptdata)
         self.assertEqual(pt.size, 3)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -41,7 +41,7 @@ class Test(unittest.TestCase):
         ptdata = StringIO.StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
-        pt = GPy.load(ptdata)
+        pt = pickle.load(ptdata)
         self.assertEqual(pt.size, 23)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -60,7 +60,7 @@ class Test(unittest.TestCase):
         ptdata = StringIO.StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
-        pt = GPy.load(ptdata)
+        pt = pickle.load(ptdata)
         self.assertEqual(pt.size, 22)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -79,7 +79,7 @@ class Test(unittest.TestCase):
         ptdata = StringIO.StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
-        pt = GPy.load(ptdata)
+        pt = pickle.load(ptdata)
         self.assertEqual(pt.size, 2)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -98,7 +98,7 @@ class Test(unittest.TestCase):
         ptdata = StringIO.StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
-        pt = GPy.load(ptdata)
+        pt = pickle.load(ptdata)
         self.assertEqual(pt.size, 5)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)
@@ -117,7 +117,7 @@ class Test(unittest.TestCase):
         ptdata = StringIO.StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
-        pt = GPy.load(ptdata)
+        pt = pickle.load(ptdata)
         self.assertEqual(pt.size, 4)
         mu1, var1 = p.predict(m.X)
         mu2, var2 = pt.predict(m.X)

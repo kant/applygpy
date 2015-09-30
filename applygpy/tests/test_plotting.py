@@ -3,6 +3,8 @@ Created on 30 Sep 2015
 
 @author: maxz
 '''
+import matplotlib  # @UnresolvedImport
+matplotlib.use('svg')
 import matplotlib, matplotlib.pyplot as plt  # @UnresolvedImport
 import GPy, numpy as np
 from applygpy.prediction import PredictionModelSparse, PredictionModel

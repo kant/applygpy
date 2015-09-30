@@ -3,7 +3,7 @@ Created on 30 Sep 2015
 
 @author: maxz
 '''
-import unittest, numpy as np, pandas as pd
+import unittest, numpy as np, pandas as pd  # @UnresolvedImport
 import GPy, GPy.kern as kern
 from applygpy.model_selection import cross_validate
 from GPy.models.gp_regression import GPRegression
