@@ -118,6 +118,7 @@ Parameters:
   linmap.A            |  (2, 1)  |              |         |         
   rbf.variance        |     1.0  |     +ve      |         |         
   rbf.lengthscale     |     1.0  |     +ve      |         |         """)
+        self.assertEqual(m.__str__(VT100=False), p.__str__(VT100=False))
         self.assertTupleEqual(p.X.shape, self.X.shape)
         self.assertTupleEqual((p.X.min(),p.X.max()), (self.X.min(), self.X.max()))
         self.assertEqual(p.X.ndim, self.X.ndim)
@@ -131,6 +132,7 @@ Parameters:
   inducing inputs          |  (10, 2)  |              |         |         
   rbf.variance             |      1.0  |     +ve      |         |         
   rbf.lengthscale          |      1.0  |     +ve      |         |         """)
+        self.assertEqual(m.__str__(VT100=False), p.__str__(VT100=False))
         self.assertTupleEqual(p.X.shape, self.X.shape)
         self.assertTupleEqual((p.X.min(),p.X.max()), (self.X.min(), self.X.max()))
         self.assertEqual(p.X.ndim, self.X.ndim)

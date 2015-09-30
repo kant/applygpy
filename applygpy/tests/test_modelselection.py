@@ -44,7 +44,8 @@ class Test(unittest.TestCase):
             m = SparseGPRegression(X, Y, kernel=kernel)
             m.Z.fix()
             return m
-        res = cross_validate(self.X, self.Y, sparse=True, verbose=self.verbose, 
+        import scipy.sparse as sparse
+        res = cross_validate(sparse.csr_matrix(self.X), self.Y, sparse=True, verbose=self.verbose, 
                              kernels_models=self.test_models, 
                              k=2,
                              #model_builder=model_builder
