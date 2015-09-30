@@ -42,7 +42,7 @@ class Test(unittest.TestCase):
         m = GPy.models.SparseGPRegression(self.X, self.Y) 
         p = PredictionModelSparse(m)
         fig, ax = plt.subplots()
-        m.plot(plot_training_data=False, ax=ax)
+        m.plot(plot_training_data=True, ax=ax)
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
         i1 = StringIO.StringIO()

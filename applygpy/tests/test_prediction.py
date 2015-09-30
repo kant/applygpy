@@ -5,7 +5,10 @@ Created on 30 Sep 2015
 '''
 import unittest, numpy as np, GPy
 from applygpy.prediction import PredictionModel, PredictionModelSparse
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import cPickle as pickle
 
 class Test(unittest.TestCase):
@@ -19,7 +22,7 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 3)
         self.assertEqual(p.size, 3)
-        ptdata = StringIO.StringIO()
+        ptdata = StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
         pt = pickle.load(ptdata)
@@ -38,7 +41,7 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 23)
         self.assertEqual(p.size, 23)
-        ptdata = StringIO.StringIO()
+        ptdata = StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
         pt = pickle.load(ptdata)
@@ -57,7 +60,7 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 22)
         self.assertEqual(p.size, 22)
-        ptdata = StringIO.StringIO()
+        ptdata = StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
         pt = pickle.load(ptdata)
@@ -76,7 +79,7 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 2)
         self.assertEqual(p.size, 2)
-        ptdata = StringIO.StringIO()
+        ptdata = StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
         pt = pickle.load(ptdata)
@@ -95,7 +98,7 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 5)
         self.assertEqual(p.size, 5)
-        ptdata = StringIO.StringIO()
+        ptdata = StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
         pt = pickle.load(ptdata)
@@ -114,7 +117,7 @@ class Test(unittest.TestCase):
         self.assert_(m.checkgrad())
         self.assertEqual(m.size, 4)
         self.assertEqual(p.size, 4)
-        ptdata = StringIO.StringIO()
+        ptdata = StringIO()
         p.pickle(ptdata)
         ptdata.seek(0)
         pt = pickle.load(ptdata)
