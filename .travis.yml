@@ -69,5 +69,5 @@ after_success:
   - codecov   
 
 script:
-  - python ../travis_tests
+  - python ../travis_tests.py
 
