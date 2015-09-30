@@ -9,5 +9,5 @@ Created on 30 Sep 2015
 import matplotlib 
 matplotlib.use('svg')
 import nose 
-nose.main()  
+nose.main('applygpy.tests')  
 
