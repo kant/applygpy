@@ -56,7 +56,7 @@ before_install:
     fi;
   - export PATH="$MINICONDA_INSTALL/bin:$PATH";
   - conda install --yes python=$PYTHON_VERSION numpy=1.9 scipy=0.16 nose pip six matplotlib pandas scikit-learn;
-  - pip install git+git@github.com:SheffieldML/GPy.git@devel 
+  - pip install https://github.com/SheffieldML/GPy/zipball/devel
   - pip install codecov
     
 install:
