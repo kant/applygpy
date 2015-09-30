@@ -62,7 +62,6 @@ install:
   - python setup.py develop
 
 before_script:
-  - cd $HOME
   - mkdir empty
   - cd empty
   
