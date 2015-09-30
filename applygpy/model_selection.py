@@ -142,6 +142,7 @@ def cross_validate(X, Y, num_inducing=None, sparse=False, k=5, kernels_models=No
             try:
                 test_mu, test_var = m.predict(X_test, full_cov=True)
                 _add_error(res, _i, test_index.size, name, 'log likelihood multivariate', log_likelihood_multivariate(test_mu, test_var, Y_test))
+                _add_error(res, _i, test_index.size, name, 'log_likelihood univariate', log_likelihood_univariate(test_mu, test_var, Y_test))
             except MemoryError:
                 test_mu, test_var = m.predict(X_test, full_cov=False)
                 _add_error(res, _i, test_index.size, name, 'log_likelihood univariate', log_likelihood_univariate(test_mu, test_var, Y_test))

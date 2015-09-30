@@ -10,10 +10,12 @@ from GPy.core.parameterization.observable_array import ObsAr
 
 class ArrayPlaceholder(ObsAr):
     def __init__(self, array):
-        self.shape = array.shape
+        self._shape = array.shape
         self._min, self._max = array.min(), array.max()
-        self.ndim = array.ndim
-        
+    
+    @property
+    def shape(self):
+        return self._shape
         
     def min(self):
         return self._min

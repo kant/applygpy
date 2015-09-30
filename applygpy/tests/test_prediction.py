@@ -4,7 +4,8 @@ Created on 30 Sep 2015
 @author: Max Zwiessele
 '''
 import unittest, numpy as np, GPy
-from applygpy.prediction import PredictionModel, PredictionModelSparse
+from applygpy.prediction import PredictionModel, PredictionModelSparse,\
+    ArrayPlaceholder
 try:
     import cPickle as pickle
 except ImportError:
@@ -14,6 +15,12 @@ class Test(unittest.TestCase):
     def setUp(self):
         self.X, self.Y = np.random.normal(0, 1, (10, 2)), np.random.normal(0, 1, (10, 1))
         pass
+
+    def testArrayPlaceholder(self):
+        pl = ArrayPlaceholder(self.X)
+        self.assertTupleEqual(pl.shape, self.X.shape)
+        self.assertTupleEqual((pl.min(), pl.max()), (self.X.min(), self.X.max()))
+        self.assertEqual(pl.ndim, self.X.ndim)
 
     def testFullGP(self):
         m = GPy.models.GPRegression(self.X, self.Y) 
@@ -103,13 +110,27 @@ class Test(unittest.TestCase):
     def testPredPrint(self):
         m = GPy.models.GPClassification(self.X, self.Y<0, mean_function=GPy.mappings.Linear(2, 1)) 
         p = PredictionModel(m)
-        print(p)
+        self.assertEqual('\n'.join(m.__str__(VT100=False).split('\n')[3:]), """Number of Parameters              : 4
+Number of Optimization Parameters : 4
+Updates                           : True
+Parameters:
+  gp_classification.  |  Value   |  Constraint  |  Prior  |  Tied to
+  linmap.A            |  (2, 1)  |              |         |         
+  rbf.variance        |     1.0  |     +ve      |         |         
+  rbf.lengthscale     |     1.0  |     +ve      |         |         """)
         self.assertTupleEqual(p.X.shape, self.X.shape)
         self.assertTupleEqual((p.X.min(),p.X.max()), (self.X.min(), self.X.max()))
         self.assertEqual(p.X.ndim, self.X.ndim)
         m = GPy.models.SparseGPClassification(self.X, self.Y<0) 
         p = PredictionModelSparse(m)
-        print(p)
+        self.assertEqual('\n'.join(m.__str__(VT100=False).split('\n')[3:]), """Number of Parameters              : 22
+Number of Optimization Parameters : 22
+Updates                           : True
+Parameters:
+  SparseGPClassification.  |   Value   |  Constraint  |  Prior  |  Tied to
+  inducing inputs          |  (10, 2)  |              |         |         
+  rbf.variance             |      1.0  |     +ve      |         |         
+  rbf.lengthscale          |      1.0  |     +ve      |         |         """)
         self.assertTupleEqual(p.X.shape, self.X.shape)
         self.assertTupleEqual((p.X.min(),p.X.max()), (self.X.min(), self.X.max()))
         self.assertEqual(p.X.ndim, self.X.ndim)
