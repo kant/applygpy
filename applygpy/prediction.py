@@ -31,6 +31,7 @@ class PredictionModelSparse(GPy.core.SparseGP):
                                                     kernel=model.kern.copy(), Z=model.Z.copy(), 
                                                     inference_method=copy.deepcopy(model.inference_method),
                                                     mean_function=(model.mean_function.copy() if model.mean_function is not None else None),
+                                                    name=model.name,
                                                     )
         self.posterior = model.posterior
         self._log_likelihood = model.log_likelihood()
@@ -63,11 +64,11 @@ class PredictionModel(GPy.core.GP):
         super(PredictionModel, self).__init__(model.X.copy(), ArrayPlaceholder(model.Y), 
                                               kernel=model.kern.copy(), likelihood=model.likelihood.copy(), 
                                               mean_function=(model.mean_function.copy() if model.mean_function is not None else None),
-                                              inference_method=copy.deepcopy(model.inference_method)
+                                              inference_method=copy.deepcopy(model.inference_method),
+                                              name=model.name,
                                               )
         self.posterior = model.posterior
         self._log_likelihood = model.log_likelihood()
-        self.name = model.name
         
     def log_likelihood(self):
         return self._log_likelihood
