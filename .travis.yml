@@ -14,10 +14,10 @@ os:
 #      - libatlas-base-dev
 #      - liblapack-dev
 
-cache:
-  directories:
-     - $HOME/download/
-     - $HOME/install/
+#cache:
+#  directories:
+#     - $HOME/download/
+#     - $HOME/install/
 
 env:
   - PYTHON_VERSION=2.7
@@ -26,7 +26,7 @@ env:
   - PYTHON_VERSION=3.5
 
 before_install:
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  #- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
   - export CONDA_CACHED=1
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       export OS=Linux;
@@ -70,5 +70,5 @@ after_success:
   - codecov   
 
 script:
-  - nosetests applygpy.tests
+  - python ../travis_tests
 

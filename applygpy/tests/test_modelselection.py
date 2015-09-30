@@ -6,10 +6,11 @@ Created on 30 Sep 2015
 import unittest, numpy as np, pandas as pd  # @UnresolvedImport
 import GPy, GPy.kern as kern
 from applygpy.model_selection import cross_validate
-from GPy.models.gp_regression import GPRegression
-from GPy.models.gp_classification import GPClassification
 from GPy.models.sparse_gp_regression import SparseGPRegression
 from GPy.models.sparse_gp_classification import SparseGPClassification
+from GPy.core.gp import GP
+from GPy.likelihoods.gaussian import Gaussian
+from GPy.inference.latent_function_inference.exact_gaussian_inference import ExactGaussianInference
 
 class Test(unittest.TestCase):
 
@@ -32,7 +33,7 @@ class Test(unittest.TestCase):
 
     def testCrossval(self):
         def model_builder(X, Y, kernel):
-            return GPRegression(X, Y, kernel=kernel, mean_function=self.mf.copy())
+            return GP(X, Y, kernel=kernel, likelihood=Gaussian(), mean_function=self.mf.copy(), inference_method=ExactGaussianInference())
         res = cross_validate(self.X, self.Y+self.mu, verbose=self.verbose)#, kernels_models=self.test_models)#, model_builder=model_builder)
         tmp = (res['error'] / res['test_size'])
         self.assertEqual(tmp.loc['RMSE'].mean().argmin(), self.sim_model)
