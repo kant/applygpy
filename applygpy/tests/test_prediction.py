@@ -7,9 +7,10 @@ import unittest, numpy as np, GPy
 from applygpy.prediction import PredictionModel, PredictionModelSparse
 try:
     from StringIO import StringIO
+    import cPickle as pickle
 except ImportError:
     from io import StringIO
-import cPickle as pickle
+    import pickle
 
 class Test(unittest.TestCase):
     def setUp(self):

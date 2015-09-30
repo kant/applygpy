@@ -8,9 +8,11 @@ import GPy, numpy as np
 from applygpy.prediction import PredictionModelSparse, PredictionModel
 try:
     from StringIO import StringIO
+    import cPickle as pickle
 except ImportError:
     from io import StringIO
-import cPickle as pickle
+    import pickle
+
 import unittest
 
 class Test(unittest.TestCase):
