@@ -105,7 +105,9 @@ class Test(unittest.TestCase):
     def testPlottingDataNotShow(self):
         m = GPy.models.SparseGPRegression(self.X, self.Y) 
         p = PredictionModelSparse(m)
-        fig, ax = plt.subplots()
+        p.plot_data()
+        
+        fig, ax = plt.subplots()        
         p.plot(plot_training_data=False, ax=ax)
         ax.set_ylim(0, 1)
         ax.set_xlim(-2, 2)
@@ -125,6 +127,8 @@ class Test(unittest.TestCase):
 
         m = GPy.models.GPRegression(self.X, self.Y) 
         p = PredictionModel(m)
+        p.plot_data()
+
         fig, ax = plt.subplots()
         p.plot(plot_training_data=False, ax=ax)
         ax.set_ylim(0, 1)

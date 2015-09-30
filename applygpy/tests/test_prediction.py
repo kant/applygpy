@@ -100,6 +100,20 @@ class Test(unittest.TestCase):
         mu2, var2 = pt.predict(m.X, full_cov=True)
         np.testing.assert_allclose(var1, var2)
 
+    def testPredPrint(self):
+        m = GPy.models.GPClassification(self.X, self.Y<0, mean_function=GPy.mappings.Linear(2, 1)) 
+        p = PredictionModel(m)
+        print(p)
+        self.assertTupleEqual(p.X.shape, self.X.shape)
+        self.assertTupleEqual((p.X.min(),p.X.max()), (self.X.min(), self.X.max()))
+        self.assertEqual(p.X.ndim, self.X.ndim)
+        m = GPy.models.SparseGPClassification(self.X, self.Y<0) 
+        p = PredictionModelSparse(m)
+        print(p)
+        self.assertTupleEqual(p.X.shape, self.X.shape)
+        self.assertTupleEqual((p.X.min(),p.X.max()), (self.X.min(), self.X.max()))
+        self.assertEqual(p.X.ndim, self.X.ndim)
+
     def testGPClassmeanf(self):
         m = GPy.models.GPClassification(self.X, self.Y<0, mean_function=GPy.mappings.Linear(2, 1)) 
         p = PredictionModel(m)
