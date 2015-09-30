@@ -54,17 +54,20 @@ before_install:
       bash $MINCONDA_CACHE_FILE -b -p $MINICONDA_INSTALL;
     fi;
   - export PATH="$MINICONDA_INSTALL/bin:$PATH";
-  
+  - conda install --yes python=$PYTHON_VERSION numpy=1.9 scipy=0.16 nose pip six matplotlib pandas scikit-learn;
+  - pip install codecov
+    
 install:
-  - conda install --yes python=$PYTHON_VERSION numpy=1.9 scipy=0.16 nose pip six;
-  - python -V
   - python setup.py develop
 
 before_script:
   - cd $HOME
   - mkdir empty
   - cd empty
-   
+  
+after_success:
+  - codecov   
+
 script:
-  - nosetests GPy.testing
+  - nosetests applygpy.tests
 

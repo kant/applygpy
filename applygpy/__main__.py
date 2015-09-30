@@ -70,7 +70,7 @@ def main(argv=None):
             print("outfile = %s" % opts.outfile)
 
         X, Y = load_libsvm(opts.infile)
-        res = cross_validate(X, Y)
+        res = cross_validate(X, Y[:,None])
         res.to_pickle(opts.outfile)
         # MAIN BODY #
 
