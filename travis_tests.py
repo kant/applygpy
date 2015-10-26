@@ -33,5 +33,5 @@ import matplotlib
 matplotlib.use('svg')
 
 import nose 
-nose.main('applygpy', defaultTest='applygpy/tests')  
+nose.main('applygpy', defaultTest='applygpy/tests/test_prediction.py')  
 
