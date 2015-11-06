@@ -29,9 +29,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #===============================================================================
 
-import matplotlib 
-matplotlib.use('svg')
-
 import nose 
 nose.main('applygpy', defaultTest='applygpy/tests/test_prediction.py')  
 
