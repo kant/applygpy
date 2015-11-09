@@ -3,7 +3,10 @@ Created on 30 Sep 2015
 
 @author: Max Zwiessele
 '''
-import matplotlib, matplotlib.pyplot as plt  # @UnresolvedImport
+import matplotlib, 
+matplotlib.use('agg')
+import matplotlib.pyplot as plt  # @UnresolvedImport
+
 import GPy, numpy as np
 from applygpy.prediction import PredictionModelSparse, PredictionModel
 from io import StringIO
