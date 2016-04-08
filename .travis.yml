@@ -34,7 +34,7 @@ before_install:
 
 install:
 - source install_retry.sh
-- pip install codecov
+- conda install codecov, scikit-learn
 - python setup.py develop
 
 script:
