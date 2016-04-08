@@ -25,7 +25,7 @@ class VarDTCFixedCov(VarDTC):
     const_jitter = 1e-6
     def __init__(self, limit=1):
         #self._YYTfactor_cache = caching.cache()
-        from GPy.util.caching import Cacher
+        from paramz.caching import Cacher
         self.limit = limit
         self.get_trYYT = Cacher(self._get_trYYT, limit)
         self.get_YYTfactor = Cacher(self._get_YYTfactor, limit)
@@ -46,7 +46,7 @@ class VarDTCFixedCov(VarDTC):
     def __setstate__(self, state):
         # has to be overridden, as Cacher objects cannot be pickled.
         self.limit = state
-        from GPy.util.caching import Cacher
+        from paramz.caching import Cacher
         self.get_trYYT = Cacher(self._get_trYYT, self.limit)
         self.get_YYTfactor = Cacher(self._get_YYTfactor, self.limit)
 
