@@ -21,14 +21,17 @@ class VarDTCFixedCov(VarDTC):
 
     For efficiency, we sometimes work with the cholesky of Y*Y.T. To save repeatedly recomputing this, we cache it.
 
+    save_per_dim:
+       save the log likelihood per output dimension, this is for testing the differential gene expression analysis using BGPLVM and MRD
     """
     const_jitter = 1e-6
-    def __init__(self, limit=1):
+    def __init__(self, limit=1, save_per_dim=False):
         #self._YYTfactor_cache = caching.cache()
         from paramz.caching import Cacher
         self.limit = limit
         self.get_trYYT = Cacher(self._get_trYYT, limit)
         self.get_YYTfactor = Cacher(self._get_YYTfactor, limit)
+        self.save_per_dim = save_per_dim
 
     def set_limit(self, limit):
         self.get_trYYT.limit = limit
@@ -62,10 +65,17 @@ class VarDTCFixedCov(VarDTC):
         else:
             return jitchol(tdot(Y))
 
+    def compute_lik_per_dim(self, psi0, A, LB, _LBi_Lmi_psi1, beta, Y):
+        lik_1 = (-0.5 * Y.shape[0] * (np.log(2. * np.pi) - np.log(beta)) - 0.5 * beta * np.einsum('ij,ij->j',Y,Y))
+        lik_2 = -0.5 * (np.sum(beta * psi0) - np.trace(A)) * np.ones(Y.shape[1])
+        lik_3 = -(np.sum(np.log(np.diag(LB))))
+        lik_4 = .5* beta**2 * ((_LBi_Lmi_psi1.dot(Y).T)**2).sum(1)
+        return lik_1 + lik_2 + lik_3 + lik_4
+
     def get_VVTfactor(self, Y, prec):
         return Y * prec # TODO chache this, and make it effective
 
-    def inference(self, kern, X, Z, likelihood, Y, Y_metadata=None, Lm=None, dL_dKmm=None, fixed_covs_kerns=None):
+    def inference(self, kern, X, Z, likelihood, Y, Y_metadata=None, Lm=None, dL_dKmm=None, fixed_covs_kerns=None, **kw):
 
         _, output_dim = Y.shape
         uncertain_inputs = isinstance(X, VariationalPosterior)
@@ -167,6 +177,9 @@ class VarDTCFixedCov(VarDTC):
         # log marginal likelihood
         log_marginal = _compute_log_marginal_likelihood(likelihood, num_data, output_dim, beta, het_noise,
             psi0, A, LB, trYYT_covs, data_fit, Y)
+
+        if self.save_per_dim:
+            self.saved_vals = [psi0, A, LB, _LBi_Lmi_psi1, beta]
 
         # No heteroscedastics, so no _LBi_Lmi_psi1Vf:
         # For the interested reader, try implementing the heteroscedastic version, it should be possible
