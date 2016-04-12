@@ -218,7 +218,6 @@ class VarDTCFixedCov(VarDTC):
         if 1:
             woodbury_vector = (beta*Cpsi1).dot(Y)
         else:
-            print 'foobar'
             import ipdb; ipdb.set_trace()
             psi1V = np.dot(Y.T*beta, psi1).T
             tmp, _ = dtrtrs(Lm, psi1V, lower=1, trans=0)
