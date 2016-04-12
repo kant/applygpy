@@ -32,5 +32,5 @@ import matplotlib
 matplotlib.use('agg')
 
 import nose
-nose.main('applygpy', defaultTest='applygpy/tests')
+nose.main('applygpy', defaultTest='applygpy/tests', argv=['', '--show-skipped'])
 

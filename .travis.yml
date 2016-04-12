@@ -35,6 +35,7 @@ before_install:
 install:
 - source install_retry.sh
 - pip install codecov
+- pip install nose-show-skipped
 - conda install --yes scikit-learn pandas
 - python setup.py develop
 

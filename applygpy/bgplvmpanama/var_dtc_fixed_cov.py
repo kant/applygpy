@@ -88,7 +88,7 @@ class VarDTCFixedCov(VarDTC):
         het_noise = beta.size > 1
 
         if het_noise:
-            raise NotImplementedError("Heteroscedastic noise not implemented, should be possible though, feel free to try implementing it :)")
+            raise(NotImplementedError("Heteroscedastic noise not implemented, should be possible though, feel free to try implementing it :)"))
 
         if beta.ndim == 1:
             beta = beta[:, None]
@@ -122,7 +122,7 @@ class VarDTCFixedCov(VarDTC):
             else:
                 tmp = psi1 * (np.sqrt(beta))
             tmp, _ = dtrtrs(Lm, tmp.T, lower=1)
-            A = tdot(tmp) #print A.sum()
+            A = tdot(tmp)
 
         # factor B
         B = np.eye(num_inducing) + A
@@ -260,7 +260,7 @@ def _compute_dL_dR(likelihood, het_noise, uncertain_inputs, LB, _LBi_Lmi_psi1Vf,
         dL_dR = None
     elif het_noise:
         if uncertain_inputs:
-            raise NotImplementedError, "heteroscedatic derivates with uncertain inputs not implemented"
+            raise(NotImplementedError, "heteroscedatic derivates with uncertain inputs not implemented")
         else:
             #from ...util.linalg import chol_inv
             #LBi = chol_inv(LB)
