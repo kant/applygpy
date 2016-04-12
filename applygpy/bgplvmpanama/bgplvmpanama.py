@@ -6,7 +6,7 @@ from GPy import Parameterized
 from nose.tools import assert_list_equal
 import numpy as np
 from GPy.core.parameterization.observable_array import ObsAr
-from var_dtc_fixed_cov import VarDTCFixedCov
+from .var_dtc_fixed_cov import VarDTCFixedCov
 
 class BGPLVM_PANAMA(BayesianGPLVMMiniBatch):
     """
@@ -63,7 +63,6 @@ class BGPLVM_PANAMA(BayesianGPLVMMiniBatch):
 
 
 if __name__ == "__main__":
-    from bgplvmpanama import *
     import GPy, itertools
     # simple test for bgplvm panama:
     n = 100
