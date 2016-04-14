@@ -31,7 +31,17 @@ class Test(unittest.TestCase):
         ptdata = pickle.dumps(p)
         pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 3)
+
         Xpred = np.random.normal(0, 1, (40, 2))
+        mu1, var1 = p.predict(Xpred)
+        mu2, var2 = pt.predict(Xpred)
+        np.testing.assert_allclose(mu1, mu2)
+        np.testing.assert_allclose(var1, var2)
+        mu1, var1 = p.predict(Xpred, full_cov=True)
+        mu2, var2 = pt.predict(Xpred, full_cov=True)
+        np.testing.assert_allclose(var1, var2)
+        
+        Xpred = np.random.normal(0, 1, (2, 2))
         mu1, var1 = p.predict(Xpred)
         mu2, var2 = pt.predict(Xpred)
         np.testing.assert_allclose(mu1, mu2)
@@ -58,6 +68,14 @@ class Test(unittest.TestCase):
         mu2, var2 = pt.predict(Xpred, full_cov=True)
         np.testing.assert_allclose(var1, var2)
         
+        Xpred = np.random.normal(0, 1, (2, 2))
+        mu1, var1 = p.predict(Xpred)
+        mu2, var2 = pt.predict(Xpred)
+        np.testing.assert_allclose(mu1, mu2)
+        np.testing.assert_allclose(var1, var2)
+        mu1, var1 = p.predict(Xpred, full_cov=True)
+        mu2, var2 = pt.predict(Xpred, full_cov=True)
+        np.testing.assert_allclose(var1, var2)
 
     def testSparseGPClassification(self):
         m = GPy.models.SparseGPClassification(self.X, self.Y<0) 
@@ -69,6 +87,15 @@ class Test(unittest.TestCase):
         pt = pickle.loads(ptdata)
         self.assertEqual(pt.size, 22)
         Xpred = np.random.normal(0, 1, (40, 2))
+        mu1, var1 = p.predict(Xpred)
+        mu2, var2 = pt.predict(Xpred)
+        np.testing.assert_allclose(mu1, mu2)
+        np.testing.assert_allclose(var1, var2)
+        mu1, var1 = p.predict(Xpred, full_cov=True)
+        mu2, var2 = pt.predict(Xpred, full_cov=True)
+        np.testing.assert_allclose(var1, var2)
+
+        Xpred = np.random.normal(0, 1, (2, 2))
         mu1, var1 = p.predict(Xpred)
         mu2, var2 = pt.predict(Xpred)
         np.testing.assert_allclose(mu1, mu2)
@@ -95,6 +122,15 @@ class Test(unittest.TestCase):
         mu2, var2 = pt.predict(Xpred, full_cov=True)
         np.testing.assert_allclose(var1, var2)
 
+        Xpred = np.random.normal(0, 1, (2, 2))
+        mu1, var1 = p.predict(Xpred)
+        mu2, var2 = pt.predict(Xpred)
+        np.testing.assert_allclose(mu1, mu2)
+        np.testing.assert_allclose(var1, var2)
+        mu1, var1 = p.predict(Xpred, full_cov=True)
+        mu2, var2 = pt.predict(Xpred, full_cov=True)
+        np.testing.assert_allclose(var1, var2)
+
     def testGPmeanf(self):
         m = GPy.models.GPRegression(self.X, self.Y, mean_function=GPy.mappings.Linear(2, 1)) 
         p = PredictionModel(m)
@@ -110,6 +146,15 @@ class Test(unittest.TestCase):
         np.testing.assert_allclose(var1, var2)
         mu1, var1 = p.predict(m.X, full_cov=True)
         mu2, var2 = pt.predict(m.X, full_cov=True)
+        np.testing.assert_allclose(var1, var2)
+
+        Xpred = np.random.normal(0, 1, (2, 2))
+        mu1, var1 = p.predict(Xpred)
+        mu2, var2 = pt.predict(Xpred)
+        np.testing.assert_allclose(mu1, mu2)
+        np.testing.assert_allclose(var1, var2)
+        mu1, var1 = p.predict(Xpred, full_cov=True)
+        mu2, var2 = pt.predict(Xpred, full_cov=True)
         np.testing.assert_allclose(var1, var2)
 
     def testPredPrint(self):
