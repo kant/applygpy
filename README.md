@@ -35,5 +35,5 @@ res = cross_validate(X, Y>Y.mean(), verbose=False,
                     )
 ```
 
-res has two errors (log-likelihood and RMSE) measures and the number of samples in the filds of the crossvalidation.
+res has two errors (log-likelihood and RMSE) measures and the number of samples in the fields of the crossvalidation.
 
